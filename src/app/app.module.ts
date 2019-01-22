@@ -8,11 +8,15 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { FavoritesPage } from '../pages/favorites/favorites';
+import { DetailsPage } from '../pages/details/details';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    FavoritesPage,
+    DetailsPage,
     TabsPage
   ],
   imports: [
@@ -23,6 +27,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     HomePage,
+    FavoritesPage,
+    DetailsPage,
     TabsPage
   ],
   providers: [
