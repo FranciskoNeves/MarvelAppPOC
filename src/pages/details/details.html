@@ -1,9 +1,27 @@
 <ion-header>
-        <ion-navbar>
-          <ion-title>Details</ion-title>
-        </ion-navbar>
-      </ion-header>
-      
-      <ion-content padding>
-        
-      </ion-content>
+  <ion-navbar>
+    <ion-title>{{comicTitle}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <img src='{{comicImage}}'  alt="image_not_available">
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p>Date: {{comicDate}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-3>
+          <p class="characters">Characters:</p>
+        </ion-col>
+        <ion-col>
+          <div *ngFor="let character of comicCharacters">
+              <p>{{character.name}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>
