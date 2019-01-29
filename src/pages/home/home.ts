@@ -29,4 +29,13 @@ export class HomePage {
     this.navCtrl.push(DetailsPage, {id: id});
   }
 
+  searchComic(value: any){
+    this.comicsProvider.getListofComicsbyTitle(value).subscribe( results =>{
+      let comics: any = results;
+      this.comicsList = comics.data.results;
+      console.log(this.comicsList);
+    })
+
+  }
+
 }

@@ -10,12 +10,18 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class DetailsPage {
 
   id: any;
-  comic: any = [];
-  comicTitle:any;
-  comicImage:any;
+  comicDetail: any = [];
+  comicCharacters: any = [];
   comicDate:any;
-  comicDescription:any;
-  comicCharacters: any = []
+  comicImage:any;
+  /* comicDetail: {
+    id: any;
+    title:any;
+    image:any;
+    date:any;
+    description:any;
+    characters: any[];
+  }; */
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -24,19 +30,27 @@ export class DetailsPage {
     this.id = this.navParams.data.id;
     this.comicsProvider.getComicbyId(this.id).subscribe( results =>{
       let item: any = results;
-      this.comic = item.data.results[0];
-      console.log(this.comic);
-      this.comicTitle = this.comic.title;
-      this.comicDate = this.comic.dates[0].date;
-      this.comicImage = this.comic.thumbnail.path + "." + this.comic.thumbnail.extension;
-      this.comicDescription = this.comic.description;
-    })
-    this.comicsProvider.getComicCharactersbyId(this.id).subscribe( results =>{
-      let item: any = results;
-      this.comicCharacters = item.data.results;
-      console.log(this.comicCharacters);
+      this.comicDetail = item.data.results[0];
+      this.comicCharacters = this.comicDetail.characters.items;
+      this.comicDate = this.comicDetail.dates[0].date;
+      this.comicImage = this.comicDetail.thumbnail.path + "." + this.comicDetail.thumbnail.extension;
+      //this.setComicDetail(comic.id, comic.title, comic.thumbnail.path + "." + comic.thumbnail.extension, comic.dates[0].date, comic.description, comic.characters.items);
+      //this.comicDetail = {id: comic.id, title: comic.title, image: comic.thumbnail.path + "." + comic.thumbnail.extension, date: comic.dates[0].date, description: comic.description, characters: comic.characters.items};
+      /* this.comicsProvider.getComicCharactersbyId(this.id).subscribe( results =>{
+        let item2: any = results; */
+        //this.setComicDetail(comic.title, comic.thumbnail.path + "." + comic.thumbnail.extension, comic.dates[0].date, comic.description, comic.characters.items);
+        /* this.comicDetail.characters = item2.data.results; */
+      /* }) */
+      /* this.comicDetail.date = comic.dates[0].date;
+      this.comicDetail.image = comic.thumbnail.path + "." + comic.thumbnail.extension;
+      this.comicDetail.description = comic.description; */
+      /* }) */
     })
   }
+
+ /*  setComicDetail(id: any, title: any, image: any, date: any, description: any, characters: any){
+    this.comicDetail = {id, title, image, date, description, characters};
+  } */
 
 
 }

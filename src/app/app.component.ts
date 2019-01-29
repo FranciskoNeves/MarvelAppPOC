@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { UtilsProvider } from '../providers/utils-provider';
 import { InitialPage } from '../pages/initial/initial';
 import { HomePage } from '../pages/home/home';
+import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,7 +17,7 @@ export class MyApp {
   @ViewChild(Nav)
   nav: Nav;
 
-  rootPage:any = HomePage;
+  rootPage:any = TabsPage;
   isLoggedIn = false;
 
   constructor(public platform: Platform,

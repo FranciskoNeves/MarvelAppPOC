@@ -26,19 +26,6 @@ export class UtilsProvider {
         return this.db.executeSql(sql, [form.value.email, form.value.password]);
     }
 
-    /* getAll(){
-        let sql = 'SELECT * FROM Logins';
-        return this.db.executeSql(sql, [])
-            .then(response => {
-                let all = [];
-                for (let index = 0; index < response.rows.length; index++) {
-                    all.push( response.rows.item(index) );
-                  }
-                console.log(all);
-            })
-            .catch(error => Promise.reject(error));
-    }
- */
     findLogin(form: any){
         let sql = 'SELECT * FROM Logins WHERE email=? and password=?';
         return this.db.executeSql(sql, [form.value.email, form.value.password])
@@ -49,5 +36,32 @@ export class UtilsProvider {
                 }
                 return Promise.resolve(login);
             })
+    }
+
+    createFavoritesTable(){
+        let sql = 'CREATE TABLE IF NOT EXISTS Favorites(dbId INTEGER PRIMARY KEY AUTOINCREMENT, id INTEGER, title TEXT, image BLOB, date BLOB, description TEXT, characters BLOB)';
+        return this.db.executeSql(sql, []);
+    }
+
+    createFavorite(){
+        let sql = 'INSERT INTO Favoritess(id, title, image, date, description, characters) VALUES(?,?,?,?,?,?)';
+        return this.db.executeSql(sql, []);
+    }
+
+    getAllFavorites(){
+        let sql = 'SELECT * FROM Favorites';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let favorites = [];
+                for (let index = 0; index < response.rows.length; index++) {
+                    favorites.push( response.rows.item(index) );
+                }
+                return Promise.resolve(favorites);
+            })
+    }
+
+    deleteFavorite(){
+        let sql = 'DELETE FROM Favorites WHERE id=?';
+        return this.db.executeSql(sql, []);
     }
 }

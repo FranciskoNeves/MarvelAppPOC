@@ -1,21 +1,31 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{comicTitle}}</ion-title>
+    <ion-title>{{comicDetail.title}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
     <img src='{{comicImage}}'  alt="image_not_available">
-    
     <ion-grid>
       <ion-row>
+        <ion-col col-4>
+          <p class="label">Date:</p>
+        </ion-col>
         <ion-col>
-          <p>Date: {{comicDate}}</p>
+          <p>{{comicDate}}</p>
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-3>
-          <p class="characters">Characters:</p>
+        <ion-col col-4>
+          <p class="label">Description:</p>
+        </ion-col>
+        <ion-col>
+          <p>{{comicDetail.description}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4>
+          <p class="label">Characters:</p>
         </ion-col>
         <ion-col>
           <div *ngFor="let character of comicCharacters">
@@ -23,5 +33,9 @@
           </div>
         </ion-col>
       </ion-row>
+      <button ion-button>
+          <ion-icon class="star" name="star-outline"></ion-icon>
+          Adicionar aos favoritos
+      </button>
     </ion-grid>
 </ion-content>
