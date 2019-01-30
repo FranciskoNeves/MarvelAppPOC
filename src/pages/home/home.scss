@@ -4,13 +4,21 @@ page-home {
         font-weight: bold;
     }
 
+    .logo{
+        width:100px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .menu-icon{
+        color: red;
+    }
+
     .star{
         font-size: 35px;
         position: relative;
         left: 80%;
-    }
-
-    .search-input{
-        //padding-bottom: 10px;
+        color: gold;
     }
 }

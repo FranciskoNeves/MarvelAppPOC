@@ -16,11 +16,11 @@ export class ComicsProvider {
         return this.http.get(url,{headers: httpHeaders});
     }
 
-    getComicbyId(id: any){
+    /* getComicbyId(id: any){
         let url = 'https://gateway.marvel.com:443/v1/public/comics/' + id + '?ts=1000&apikey=200bf1531c6fceffa554b6ecf3402467&hash=4e2e6ef92d0c352f669069d2ae80adc9';
 
         return this.http.get(url);
-    }
+    } */
 
     /* getComicCharactersbyId(id: any){
         let url ='https://gateway.marvel.com:443/v1/public/comics/' + id + '/characters?ts=1000&apikey=200bf1531c6fceffa554b6ecf3402467&hash=4e2e6ef92d0c352f669069d2ae80adc9';

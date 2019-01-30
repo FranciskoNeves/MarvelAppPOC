@@ -3,7 +3,21 @@
       <ion-title>Favorites</ion-title>
     </ion-navbar>
   </ion-header>
-  
+
   <ion-content padding>
-    
+    <ion-row >
+      <ion-col col-6 *ngFor="let comic of comicsList; index as i">
+        <ion-card (click)="openDetail(comic.id, i)">
+          <!-- <div *ngIf="comic.isFavorite; else elseBlock"> -->
+            <!-- <ion-icon class="star" name="star-outline" (click)="addFavorite(i)"></ion-icon> -->
+          <!-- </div> -->
+          <!-- <ng-template #elseBlock>
+            <ion-icon class="star" name="star" (click)="removeFavorite(comic.id)"></ion-icon>
+          </ng-template> -->
+          <img src='{{comic.image}}'  alt="image_not_available">
+          <h2 class="card-title">{{comic.title}}</h2>
+          <p>{{comic.date}}</p>
+        </ion-card>
+      </ion-col>
+    </ion-row>
   </ion-content>

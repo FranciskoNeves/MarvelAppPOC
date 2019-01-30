@@ -43,9 +43,9 @@ export class UtilsProvider {
         return this.db.executeSql(sql, []);
     }
 
-    createFavorite(){
-        let sql = 'INSERT INTO Favoritess(id, title, image, date, description, characters) VALUES(?,?,?,?,?,?)';
-        return this.db.executeSql(sql, []);
+    createFavorite(comic: any){
+        let sql = 'INSERT INTO Favorites(id, title, image, date, description, characters) VALUES(?,?,?,?,?,?)';
+        return this.db.executeSql(sql, [comic.id, comic.title,comic.thumbnail.path + "." + comic.thumbnail.extension, comic.dates[0].date, comic.description, comic.characters.items]);
     }
 
     getAllFavorites(){
@@ -60,8 +60,35 @@ export class UtilsProvider {
             })
     }
 
-    deleteFavorite(){
+    deleteFavorite(comic: any){
         let sql = 'DELETE FROM Favorites WHERE id=?';
+        return this.db.executeSql(sql, [comic.id]);
+    }
+
+    /* createIsFavoriteTable(){
+        let sql = 'CREATE TABLE IF NOT EXISTS IsFavorites(dbId INTEGER PRIMARY KEY AUTOINCREMENT, id INTEGER, isFavorite BOOLEAN)';
         return this.db.executeSql(sql, []);
     }
+
+    createisFavorite(){
+        let sql = 'INSERT INTO IsFavorites(id, isFavorite) VALUES(?,?)';
+        return this.db.executeSql(sql, []);
+    }
+
+    getAllIsFavorites(){
+        let sql = 'SELECT * FROM IsFavorites';
+        return this.db.executeSql(sql, [])
+            .then(response => {
+                let favorites = [];
+                for (let index = 0; index < response.rows.length; index++) {
+                    favorites.push( response.rows.item(index) );
+                }
+                return Promise.resolve(favorites);
+            })
+    }
+
+    deleteIsFavorite(){
+        let sql = 'DELETE FROM IsFavorites WHERE id=?';
+        return this.db.executeSql(sql, []);
+    } */
 }

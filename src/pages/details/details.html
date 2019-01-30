@@ -5,14 +5,24 @@
 </ion-header>
 
 <ion-content padding>
-    <img src='{{comicImage}}'  alt="image_not_available">
+    <div *ngIf="inFavorites != true; else else1">
+        <img src='{{comicDetail.thumbnail.path + "." + comicDetail.thumbnail.extension}}'  alt="image_not_available">
+      </div>
+      <ng-template #else1>
+          <img src='{{comicDetail.image}}'  alt="image_not_available">
+      </ng-template>
     <ion-grid>
       <ion-row>
         <ion-col col-4>
           <p class="label">Date:</p>
         </ion-col>
         <ion-col>
-          <p>{{comicDate}}</p>
+            <div *ngIf="inFavorites != true; else else2">
+              <p>{{comicDetail.dates[0].date}}</p>
+            </div>
+            <ng-template #else2>
+              <p>{{comicDetail.date}}</p>
+            </ng-template>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -28,14 +38,22 @@
           <p class="label">Characters:</p>
         </ion-col>
         <ion-col>
-          <div *ngFor="let character of comicCharacters">
+          <div *ngFor="let character of comicDetail.characters.items">
               <p>{{character.name}}</p>
           </div>
         </ion-col>
       </ion-row>
-      <button ion-button>
+      <div *ngIf="comicDetail.digitalId == 0; else elseBlock">
+        <button ion-button (click)="addFavorite()" block>
           <ion-icon class="star" name="star-outline"></ion-icon>
-          Adicionar aos favoritos
-      </button>
+          <p>Adicionar aos favoritos</p>
+        </button>
+      </div>
+      <ng-template #elseBlock>
+        <button ion-button (click)="removeFavorite(comicDetail.id)" block>
+          <ion-icon class="star" name="star"></ion-icon>
+          Remover dos favoritos
+        </button>
+      </ng-template>
     </ion-grid>
 </ion-content>

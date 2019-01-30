@@ -15,7 +15,7 @@ export class RegisterPage {
   }
 
   onRegister(form: NgForm){
-      this.utilsProvider.createLogin(form)
+      this.utilsProvider.createLogin(form);
       this.navCtrl.push(LoginPage);
   }
 

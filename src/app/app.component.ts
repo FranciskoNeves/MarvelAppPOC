@@ -57,6 +57,7 @@ export class MyApp {
       .then(db => {
         this.utilsProvider.setDatabase(db);
         this.utilsProvider.createLoginTable();
+        this.utilsProvider.createFavoritesTable();
       })
       .catch(error => {
       });
