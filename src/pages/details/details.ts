@@ -12,6 +12,8 @@ export class DetailsPage {
   id: any;
   comicDetail: any = [];
   inFavorites: boolean;
+  email: any;
+  charactersList: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -20,12 +22,14 @@ export class DetailsPage {
 
     this.id = this.navParams.data.id;
     this.comicDetail = this.navParams.data.comicDetail;
+    this.charactersList = this.navParams.data.characters[0];
     this.inFavorites = this.navParams.data.inFavorites;
+    this.email = this.navParams.data.email;
   }
 
   addFavorite(){
     this.comicDetail.digitalId = 1;
-    this.utilsProvider.createFavorite(this.comicDetail);
+    this.utilsProvider.createFavorite(this.comicDetail, this.email);
 }
 
   removeFavorite(){

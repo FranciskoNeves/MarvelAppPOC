@@ -7,7 +7,6 @@ import { SQLite } from '@ionic-native/sqlite';
 import { Storage } from '@ionic/storage';
 import { UtilsProvider } from '../providers/utils-provider';
 import { InitialPage } from '../pages/initial/initial';
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
@@ -28,7 +27,7 @@ export class MyApp {
               private utilsProvider: UtilsProvider,
               public storage: Storage,) {
 
-    /* this.checkIfLoggedIn(); */
+    this.checkIfLoggedIn();
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -45,6 +44,7 @@ export class MyApp {
 
   onLogout(){
     this.storage.set("isLoggedIn", false);
+    this.storage.set("email", "");
     this.menuCtrl.close();
     this.nav.push(InitialPage);
   }
@@ -63,15 +63,18 @@ export class MyApp {
       });
   }
 
-  /* private checkIfLoggedIn(){
+  private checkIfLoggedIn(){
     this.storage.get("isLoggedIn")
       .then( data =>{
         if(data){
-          this.nav.setRoot(HomePage);
+          this.storage.get('email')
+            .then( emailData => {
+              this.nav.setRoot(TabsPage, {email: emailData});
+          })
         }
         else{
           this.nav.setRoot(InitialPage);
         }
       })
-  } */
+  }
 }

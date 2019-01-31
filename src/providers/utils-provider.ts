@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite';
+import { ComicsProvider } from './comics-provider';
 
 @Injectable()
 export class UtilsProvider {
 
     db: SQLiteObject = null;
 
-    constructor(){
-
-    }
+    constructor(){}
 
     setDatabase(db: SQLiteObject){
         if(this.db === null){
@@ -39,22 +38,26 @@ export class UtilsProvider {
     }
 
     createFavoritesTable(){
-        let sql = 'CREATE TABLE IF NOT EXISTS Favorites(dbId INTEGER PRIMARY KEY AUTOINCREMENT, id INTEGER, title TEXT, image BLOB, date BLOB, description TEXT, characters BLOB)';
+        let sql = 'CREATE TABLE IF NOT EXISTS Favorites(dbId INTEGER PRIMARY KEY AUTOINCREMENT, id INTEGER, title TEXT, image BLOB, date BLOB, description TEXT, characters BLOB, email BLOB)';
         return this.db.executeSql(sql, []);
     }
 
-    createFavorite(comic: any){
-        let sql = 'INSERT INTO Favorites(id, title, image, date, description, characters) VALUES(?,?,?,?,?,?)';
-        return this.db.executeSql(sql, [comic.id, comic.title,comic.thumbnail.path + "." + comic.thumbnail.extension, comic.dates[0].date, comic.description, comic.characters.items]);
+    createFavorite(comic: any, email: any){
+        let charactersList =[];
+        for(let i = 0; i < comic.characters.items.length; i++){
+            charactersList.push(comic.characters.items[i].name);
+        }
+        let sql = 'INSERT INTO Favorites(id, title, image, date, description, characters, email) VALUES(?,?,?,?,?,?,?)';
+        return this.db.executeSql(sql, [comic.id, comic.title,comic.thumbnail.path + "." + comic.thumbnail.extension, comic.dates[0].date, comic.description, charactersList, email]);
     }
 
-    getAllFavorites(){
-        let sql = 'SELECT * FROM Favorites';
-        return this.db.executeSql(sql, [])
+    getAllFavoritesbyLogin(email: any){
+        let sql = 'SELECT * FROM Favorites WHERE email =?';
+        return this.db.executeSql(sql, [email])
             .then(response => {
                 let favorites = [];
                 for (let index = 0; index < response.rows.length; index++) {
-                    favorites.push( response.rows.item(index) );
+                    favorites.push( response.rows.item(index));
                 }
                 return Promise.resolve(favorites);
             })

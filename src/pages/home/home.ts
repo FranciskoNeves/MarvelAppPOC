@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController } from 'ionic-angular';
+import { NavController, MenuController, NavParams } from 'ionic-angular';
 import { ComicsProvider } from '../../providers/comics-provider';
 import { DetailsPage } from '../details/details';
 import { UtilsProvider } from '../../providers/utils-provider';
@@ -11,12 +11,14 @@ import { UtilsProvider } from '../../providers/utils-provider';
 export class HomePage {
 
   comicsList: any = [];
+  email: any;
 
   constructor(public navCtrl: NavController,
               public menuCtrl: MenuController,
               public comicsProvider: ComicsProvider,
-              public utilsProvider: UtilsProvider) {
-
+              public utilsProvider: UtilsProvider,
+              public navParams: NavParams) {
+    this.email = this.navParams.data;
     this.comicsProvider.getListOfComics().subscribe( results =>{
       let comics: any = results;
       this.comicsList = comics.data.results;
@@ -28,7 +30,7 @@ export class HomePage {
   }
 
   openDetail(id: any, index: any){
-    this.navCtrl.push(DetailsPage, {id: id, comicDetail: this.comicsList[index]});
+    this.navCtrl.push(DetailsPage, {id: id, comicDetail: this.comicsList[index], email: this.email});
   }
 
   searchComic(value: any){
@@ -37,12 +39,4 @@ export class HomePage {
       this.comicsList = comics.data.results;
     })
   }
-
-  /* addFavorite(index: any){
-      this.utilsProvider.createFavorite(this.comicsList[index]);
-  }
-
-  removeFavorite(id: any){
-      this.utilsProvider.deleteFavorite(id);
-  } */
 }

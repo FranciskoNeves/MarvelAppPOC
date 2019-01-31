@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { UtilsProvider } from '../../providers/utils-provider';
-import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-login',
@@ -25,8 +25,9 @@ export class LoginPage {
           toast.present();
         }
         else{
-          this.navCtrl.push(HomePage);
+          this.navCtrl.push(TabsPage, {email: response[0].email});
           this.storage.set("isLoggedIn", true);
+          this.storage.set("email", response[0].email);
         }
       })
       .catch( error =>{

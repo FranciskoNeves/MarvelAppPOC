@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { UtilsProvider } from '../../providers/utils-provider';
 import { DetailsPage } from '../details/details';
 
@@ -10,21 +10,28 @@ import { DetailsPage } from '../details/details';
 export class FavoritesPage {
 
   comicsList: any = [];
+  email:any;
 
   constructor(public navCtrl: NavController,
-              public utilsProvider: UtilsProvider) {
+              public utilsProvider: UtilsProvider,
+              public navParams: NavParams) {
   }
 
   ionViewWillEnter(){
-    this.utilsProvider.getAllFavorites()
+    this.email = this.navParams.data;
+    this.utilsProvider.getAllFavoritesbyLogin(this.email)
       .then( response => {
-        console.log(response);
         this.comicsList = response;
+      })
+      .catch(error=>{
+        console.log(error);
       })
   }
 
   openDetail(id: any, index: any){
-    console.log(id, index);
-    this.navCtrl.push(DetailsPage, {id: id, comicDetail: this.comicsList[index], inFavorites: true});
+    let charactersList = [];
+      charactersList.push(this.comicsList[index].characters.split(","));
+      console.log(charactersList);
+    this.navCtrl.push(DetailsPage, {id: id, comicDetail: this.comicsList[index], characters: charactersList, inFavorites: true});
   }
 }

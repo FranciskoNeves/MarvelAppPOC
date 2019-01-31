@@ -38,9 +38,16 @@
           <p class="label">Characters:</p>
         </ion-col>
         <ion-col>
-          <div *ngFor="let character of comicDetail.characters.items">
-              <p>{{character.name}}</p>
-          </div>
+              <div *ngIf="inFavorites != true; else else3">
+                <div *ngFor="let character of comicDetail.characters.items">
+                    <p>{{character.name}}</p>
+                </div>
+              </div>
+              <ng-template #else3>
+                  <div *ngFor="let character of charactersList">
+                      <p>{{character}}</p>
+                  </div>
+              </ng-template>
         </ion-col>
       </ion-row>
       <div *ngIf="comicDetail.digitalId == 0; else elseBlock">
