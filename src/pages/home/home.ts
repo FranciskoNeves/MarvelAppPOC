@@ -30,7 +30,15 @@ export class HomePage {
   }
 
   openDetail(id: any, index: any){
-    this.navCtrl.push(DetailsPage, {id: id, comicDetail: this.comicsList[index], email: this.email});
+    this.utilsProvider.findFavorite(id)
+      .then( response =>{
+        if(response){
+          this.navCtrl.push(DetailsPage, {id: id, comicDetail: this.comicsList[index], email: this.email, alreadyInFavorites: response});
+        }
+        else{
+          this.navCtrl.push(DetailsPage, {id: id, comicDetail: this.comicsList[index], email: this.email, alreadyInFavorites: response});
+        }
+    })
   }
 
   searchComic(value: any){

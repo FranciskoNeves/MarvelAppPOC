@@ -51,6 +51,20 @@ export class UtilsProvider {
         return this.db.executeSql(sql, [comic.id, comic.title,comic.thumbnail.path + "." + comic.thumbnail.extension, comic.dates[0].date, comic.description, charactersList, email]);
     }
 
+    findFavorite(id: any){
+        let sql = 'SELECT * FROM Favorites WHERE id=?';
+        let favorite: boolean;
+        return this.db.executeSql(sql, [id])
+            .then(response => {
+                if(response.rows.length == 0)
+                    favorite = false
+                else{
+                    favorite = true
+                }
+                return Promise.resolve(favorite);
+            })
+    }
+
     getAllFavoritesbyLogin(email: any){
         let sql = 'SELECT * FROM Favorites WHERE email =?';
         return this.db.executeSql(sql, [email])

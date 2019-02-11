@@ -1,4 +1,10 @@
-<ion-content padding>
-    <button ion-button (click)="goToLoginPage()">Login</button>
-    <button ion-button (click)="goToRegisterPage()">Register</button>
+<ion-content padding class="initial-background">
+    <ion-grid>
+        <ion-row class="login-btn">
+            <button ion-button large (click)="goToLoginPage()">Login</button>
+        </ion-row>
+        <ion-row class="register-btn">
+            <button ion-button large (click)="goToRegisterPage()">Register</button>
+        </ion-row>
+    </ion-grid>
 </ion-content>

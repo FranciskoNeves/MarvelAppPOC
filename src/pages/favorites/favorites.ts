@@ -30,8 +30,7 @@ export class FavoritesPage {
 
   openDetail(id: any, index: any){
     let charactersList = [];
-      charactersList.push(this.comicsList[index].characters.split(","));
-      console.log(charactersList);
-    this.navCtrl.push(DetailsPage, {id: id, comicDetail: this.comicsList[index], characters: charactersList, inFavorites: true});
+    charactersList.push(this.comicsList[index].characters.split(","));
+    this.navCtrl.push(DetailsPage, {id: id, comicDetail: this.comicsList[index], characters: charactersList[0], inFavorites: true, alreadyInFavorites: true});
   }
 }
